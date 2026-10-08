@@ -22,6 +22,10 @@ mono_crash.*
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+out/
+build/
+.vs/
+CMakeUserPresets.json
 
 [Dd]ebug/x64/
 [Dd]ebugPublic/x64/
@@ -410,6 +414,7 @@ FodyWeavers.xsd
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
+!assets/**/*.obj
 
 # Local History for Visual Studio Code
 .history/
