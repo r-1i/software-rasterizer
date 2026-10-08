@@ -12,12 +12,20 @@
 	project (SoftwareRasterizer LANGUAGES CXX)
 	
 	# Add source to this project's executable.
-	add_executable (SoftwareRasterizer "src/SoftwareRasterizer.cpp" "src/SoftwareRasterizer.h")
+	add_executable (SoftwareRasterizer 
+	"src/SoftwareRasterizer.cpp" 
+	"src/SoftwareRasterizer.h"
+	"src/Image.h" "src/Image.cpp" )
+	add_library(SimpleMath STATIC "third_party/SimpleMath/SimpleMath.h" "third_party/SimpleMath/SimpleMath.cpp" "third_party/SimpleMath/pch.h")
 
+	target_compile_features(SimpleMath PUBLIC cxx_std_20)
 	set_property(TARGET SoftwareRasterizer PROPERTY CXX_STANDARD 20)
 	set_property(TARGET SoftwareRasterizer PROPERTY CXX_STANDARD_REQUIRED ON)
+	
+	target_include_directories(SimpleMath SYSTEM PUBLIC third_party)
 
 	target_include_directories(SoftwareRasterizer PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 	target_include_directories(SoftwareRasterizer SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/third_party/")
-
+	
+	target_link_libraries(SoftwareRasterizer PRIVATE SimpleMath)
 
