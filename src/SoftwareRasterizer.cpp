@@ -27,6 +27,7 @@ int main()
             img.PaintPixel(x, y, color);
         }
     }
+    img.Fill(DirectX::SimpleMath::Color(1.0, 0.0, 0.0));
     img.SaveToFile("test1.png");
     return 0;
 }

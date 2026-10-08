@@ -19,6 +19,7 @@ class Image
     unsigned int m_height;
     Channel m_channels;
     std::vector<unsigned char> m_data;
+    int FloatToUnorm8(float v);
 
   public:
     Image() = delete;
@@ -39,5 +40,7 @@ class Image
 
     int SaveToFile(const char *fileName) const;
 
-    void PaintPixel(int x, int y, DirectX::SimpleMath::Color color);
+    void PaintPixel(int x, int y, const DirectX::SimpleMath::Color &color);
+
+    void Fill(const DirectX::SimpleMath::Color &color);
 };
