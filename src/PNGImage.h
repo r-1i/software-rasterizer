@@ -12,7 +12,7 @@ enum class Channel
     RGBA = 4
 };
 
-class Image
+class PNGImage
 {
   private:
     unsigned int m_width;
@@ -22,13 +22,13 @@ class Image
     int FloatToUnorm8(float v);
 
   public:
-    Image() = delete;
-    Image(unsigned int width, unsigned int height, Channel channels)
+    PNGImage() = delete;
+    PNGImage(unsigned int width, unsigned int height, Channel channels)
         : m_width(width), m_height(height), m_channels(channels),
           m_data(std::vector<unsigned char>(width * height * static_cast<unsigned int>(channels), 0))
     {
     }
-    Image(unsigned int width, unsigned int height, Channel channels, const std::vector<unsigned char> &data)
+    PNGImage(unsigned int width, unsigned int height, Channel channels, const std::vector<unsigned char> &data)
         : m_width(width), m_height(height), m_channels(channels),
           m_data(std::vector<unsigned char>(data.begin(), data.end()))
     {
@@ -37,6 +37,15 @@ class Image
             throw std::invalid_argument("Buffer data has wrong size, must be width*height*channels");
         }
     };
+
+    unsigned int GetWidth() const
+    {
+        return m_width;
+    }
+    unsigned int GetHeight() const
+    {
+        return m_height;
+    }
 
     int SaveToFile(const char *fileName) const;
 

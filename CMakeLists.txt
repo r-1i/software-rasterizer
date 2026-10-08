@@ -15,7 +15,7 @@
 	add_executable (SoftwareRasterizer 
 	"src/SoftwareRasterizer.cpp" 
 	"src/SoftwareRasterizer.h"
-	"src/Image.h" "src/Image.cpp" )
+	"src/PNGImage.h" "src/PNGImage.cpp"  "src/Draw.h" "src/Draw.cpp")
 	add_library(SimpleMath STATIC "third_party/SimpleMath/SimpleMath.h" "third_party/SimpleMath/SimpleMath.cpp" "third_party/SimpleMath/pch.h")
 
 	target_compile_features(SimpleMath PUBLIC cxx_std_20)
