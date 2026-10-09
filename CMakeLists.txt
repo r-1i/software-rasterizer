@@ -15,8 +15,14 @@
 	add_executable (SoftwareRasterizer 
 	"src/SoftwareRasterizer.cpp" 
 	"src/SoftwareRasterizer.h"
-	"src/PNGImage.h" "src/PNGImage.cpp"  "src/Draw.h" "src/Draw.cpp")
-	add_library(SimpleMath STATIC "third_party/SimpleMath/SimpleMath.h" "third_party/SimpleMath/SimpleMath.cpp" "third_party/SimpleMath/pch.h")
+	"src/PNGImage.h" 
+	"src/PNGImage.cpp"  
+	"src/Draw.h" 
+	"src/Draw.cpp" 
+	"src/OBJParser.h" 
+	"src/Model.h" 
+	"src/OBJParser.cpp")
+	add_library(SimpleMath STATIC "third_party/SimpleMath/SimpleMath.h" "third_party/SimpleMath/SimpleMath.cpp" "third_party/SimpleMath/pch.h" )
 
 	target_compile_features(SimpleMath PUBLIC cxx_std_20)
 	set_property(TARGET SoftwareRasterizer PROPERTY CXX_STANDARD 20)
@@ -29,3 +35,4 @@
 	
 	target_link_libraries(SoftwareRasterizer PRIVATE SimpleMath)
 
+	add_custom_command(TARGET SoftwareRasterizer POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:SoftwareRasterizer>/assets")
