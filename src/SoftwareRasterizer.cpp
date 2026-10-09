@@ -43,9 +43,17 @@ int main()
         v_3.x = ((v_3.x + 1.0) / 2.0) * 799;
         v_3.y = ((-v_3.y + 1.0) / 2.0) * 799;
 
+        // Wireframe
         Draw::Line(v_1.x, v_1.y, v_2.x, v_2.y, img, c_white);
         Draw::Line(v_1.x, v_1.y, v_3.x, v_3.y, img, c_white);
         Draw::Line(v_2.x, v_2.y, v_3.x, v_3.y, img, c_white);
+
+        DirectX::SimpleMath::Color rand_color(v_1.x / static_cast<float>(799), v_2.x / static_cast<float>(799),
+                                              v_3.x / static_cast<float>(799));
+
+        Draw::FillTriangle(v_1, v_2, v_3, img, rand_color);
+
+        //
     }
 
     img.SaveToFile("test1.png");
