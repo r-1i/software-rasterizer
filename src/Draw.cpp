@@ -44,8 +44,7 @@ void Draw::Line(int x0, int y0, int x1, int y1, PNGImage &image, const DirectX::
     }
 }
 
-void Draw::FillTriangle(IShader &shader, int itr, PNGImage &img, const DirectX::SimpleMath::Color &color,
-                        std::vector<int> &zbuffer, const Model &model)
+void Draw::FillTriangle(IShader &shader, int itr, PNGImage &img, std::vector<float> &zbuffer, const Model &model)
 {
     // World space
     DirectX::SimpleMath::Vector3 a = shader.vertex(itr, 0, model);
