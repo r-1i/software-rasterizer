@@ -1,4 +1,5 @@
 #include "Draw.h"
+#include "IShader.h"
 #include <iostream>
 
 void Draw::Line(int x0, int y0, int x1, int y1, PNGImage &image, const DirectX::SimpleMath::Color &color)
@@ -44,7 +45,8 @@ void Draw::Line(int x0, int y0, int x1, int y1, PNGImage &image, const DirectX::
     }
 }
 
-void Draw::FillTriangle(IShader &shader, int itr, PNGImage &img, std::vector<float> &zbuffer, const Model &model)
+void Draw::FillTriangle(Shaders::IShader &shader, int itr, PNGImage &img, std::vector<float> &zbuffer,
+                        const Model &model)
 {
     // World space
     DirectX::SimpleMath::Vector3 a = shader.vertex(itr, 0, model);
@@ -103,7 +105,7 @@ void Draw::FillTriangle(IShader &shader, int itr, PNGImage &img, std::vector<flo
             P.z = baryCoords.z;
 
             int idx = x + y * img.GetWidth();
-            if (zbuffer[idx] < P.z)
+            if (zbuffer[idx] > P.z)
             {
                 zbuffer[idx] = P.z;
                 DirectX::SimpleMath::Color colorPixel;

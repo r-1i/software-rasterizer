@@ -25,7 +25,7 @@ int main()
         return a.x * b.x + a.y * b.y + a.z * b.z;
     };
 
-    std::vector<float> zbuffer(img.GetWidth() * img.GetHeight(), std::numeric_limits<float>().lowest());
+    std::vector<float> zbuffer(img.GetWidth() * img.GetHeight(), (std::numeric_limits<float>::max)());
 
     Shaders::SimpleShader shader;
 
