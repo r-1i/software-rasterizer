@@ -1,8 +1,42 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
 #include "PNGImage.h"
 #include "stb_image_write.h"
+#include "stb_image.h"
 #include <algorithm>
+
+PNGImage::PNGImage(const char* filePath)
+{
+    unsigned char* pixels;
+    int w;
+    int h;
+    int n;
+    pixels = stbi_load(filePath, &w, &h, &n, 3);
+    if (pixels == nullptr) {
+        throw std::invalid_argument("Wrong file path for PNGImage");
+    }
+
+    m_width = w;
+    m_height = h;
+    m_channels = Channel::RGB;
+    m_data = std::vector<unsigned char>(m_width * m_height * static_cast<unsigned int>(m_channels), 0);
+    for(int x = 0; x < w; ++x){
+        for (int y = 0; y < h; ++y) {
+            for(int ch = 0; ch < 3; ++ch){
+                size_t idx = x * static_cast<int>(m_channels) + y * w * static_cast<int>(m_channels) + ch;
+                m_data[idx] = pixels[idx];
+            }
+        }
+    }
+    stbi_image_free(pixels);
+}
+
+DirectX::SimpleMath::Color PNGImage::Get(int x, int y) const
+{
+    int idx = x * static_cast<int>(m_channels) + y * m_width * static_cast<int>(m_channels);
+    return DirectX::SimpleMath::Color(m_data[idx]/255.0f, m_data[idx+1] / 255.0f, m_data[idx+2] / 255.0f);
+}
 
 int PNGImage::SaveToFile(const char *fileName) const
 {

@@ -37,6 +37,7 @@ class PNGImage
             throw std::invalid_argument("Buffer data has wrong size, must be width*height*channels");
         }
     };
+    PNGImage(const char* filePath);
 
     unsigned int GetWidth() const
     {
@@ -46,6 +47,8 @@ class PNGImage
     {
         return m_height;
     }
+
+    DirectX::SimpleMath::Color Get(int x, int y) const;
 
     int SaveToFile(const char *fileName) const;
 

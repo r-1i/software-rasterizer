@@ -46,7 +46,7 @@ void Draw::Line(int x0, int y0, int x1, int y1, PNGImage &image, const DirectX::
 }
 
 void Draw::FillTriangle(Shaders::IShader &shader, int itr, PNGImage &img, std::vector<float> &zbuffer,
-                        const Model &model)
+                        const Model &model, const PNGImage& albedo)
 {
     // World space
     DirectX::SimpleMath::Vector3 a = shader.vertex(itr, 0, model);
@@ -109,7 +109,7 @@ void Draw::FillTriangle(Shaders::IShader &shader, int itr, PNGImage &img, std::v
             {
                 zbuffer[idx] = P.z;
                 DirectX::SimpleMath::Color colorPixel;
-                shader.fragment(barycentric, colorPixel);
+                shader.fragment(barycentric, colorPixel, albedo);
                 // DirectX::SimpleMath::Color testDepth(P.z, P.z, P.z);
 
                 img.PaintPixel(x, y, colorPixel);
